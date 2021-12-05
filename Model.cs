@@ -78,11 +78,11 @@ namespace Overtake_Expert_System
 
             if(ruleEngine.Facts.facts.Count == 4)
             {
-                PersentageCount(Convert.ToString(ruleEngine.Facts.facts[3]), overtakeData);
+                PercentageCount(Convert.ToString(ruleEngine.Facts.facts[3]), overtakeData);
             }
             else
             {
-                PersentageCount("False", overtakeData);
+                PercentageCount("False", overtakeData);
             }
         }
 
@@ -93,7 +93,7 @@ namespace Overtake_Expert_System
             Console.WriteLine("Conclusion: " + conclusion);
         }
 
-        private static void PersentageCount(string TestedDataAns, string DataAns)
+        private static void PercentageCount(string TestedDataAns, string DataAns)
         {
             if (TestedDataAns == "Overtake = " + DataAns)
             {
