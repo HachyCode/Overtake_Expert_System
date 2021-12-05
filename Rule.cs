@@ -27,8 +27,7 @@ namespace Overtake_Expert_System
             m_consequent = consequent;
         }
 
-        public bool isTriggered(Memory memory)
-        {
+        public bool isTriggered(Memory memory)        {
             foreach (Clause antecedent in m_antecedents)
             {
                 if (!memory.IsFact(antecedent))
