@@ -20,7 +20,7 @@ namespace Overtake_Expert_System
         }
         private static void Timer()
         {
-            Console.WriteLine("Timer started");
+            View.PrintTime("Timer started");
 
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
@@ -30,7 +30,7 @@ namespace Overtake_Expert_System
             }
             stopWatch.Stop();
 
-            Console.WriteLine($"RunTime: {stopWatch.Elapsed}");
+            View.PrintTime($"RunTime: {stopWatch.Elapsed}");
         }
     }
 }
