@@ -12,6 +12,8 @@ namespace Overtake_Expert_System
         private static Rule rule;
         private static Random rnd = new Random();
 
+        private static int TestedDataAmount = 50;
+        
         private static string initialSeparation = "InitialSeparation";
         private static string overtakingSpeed = "OvertakingSpeed";
         private static string oncomingSpeed = "OncomingSpeed";
@@ -21,31 +23,66 @@ namespace Overtake_Expert_System
         private static string overtakingSpeedData { get; set; }
         private static string oncomingSpeedData { get; set; }
         private static string overtakeData { get; set; }
+        private static int CorrectAns { get; set; }
+        private static double Percentage { get; set; }
+        private static int rndDataType { get; set; }
+
 
         private static RuleEngine ruleEngine = new RuleEngine();
         public Model()
         {
             ReadData();
-
-            ForwardChain();
-            BackwardChain();
+            
         }
 
-        public static void AddFacts()
+        public static void AddFacts(string type)
         {
-            ruleEngine.ClearFacts();
-            ruleEngine.AddFact(new IsClause(initialSeparation, initialSeparationData));
-            ruleEngine.AddFact(new IsClause(overtakingSpeed, overtakingSpeedData));
-            ruleEngine.AddFact(new IsClause(oncomingSpeed, oncomingSpeedData));
+            if(type == "AllData")
+            {
+                ruleEngine.ClearFacts();
+                ruleEngine.AddFact(new IsClause(initialSeparation, initialSeparationData));
+                ruleEngine.AddFact(new IsClause(overtakingSpeed, overtakingSpeedData));
+                ruleEngine.AddFact(new IsClause(oncomingSpeed, oncomingSpeedData));
+            }
+            else if (type == "TwoData")
+            {
+                ruleEngine.ClearFacts();
+                rndDataType = rnd.Next(1 , 3);
+
+                if(rndDataType == 1)
+                {
+                    ruleEngine.AddFact(new IsClause(initialSeparation, initialSeparationData));
+                    ruleEngine.AddFact(new IsClause(overtakingSpeed, overtakingSpeedData));
+                }
+                else if (rndDataType == 2)
+                {
+                    ruleEngine.AddFact(new IsClause(overtakingSpeed, overtakingSpeedData));
+                    ruleEngine.AddFact(new IsClause(oncomingSpeed, oncomingSpeedData));
+                }
+                else
+                {
+                    ruleEngine.AddFact(new IsClause(initialSeparation, initialSeparationData));
+                    ruleEngine.AddFact(new IsClause(oncomingSpeed, oncomingSpeedData));
+                }
+            }
         }
 
         public static void ForwardChain()
         {
             ruleEngine.Infer();
-            Console.WriteLine("\nafter inference");
+            Console.WriteLine("after inference");
             foreach ( var fact in ruleEngine.Facts.facts)
             {
                 Console.WriteLine(fact);
+            }
+
+            if(ruleEngine.Facts.facts.Count == 4)
+            {
+                PersentageCount(Convert.ToString(ruleEngine.Facts.facts[3]), overtakeData);
+            }
+            else
+            {
+                PersentageCount("False", overtakeData);
             }
         }
 
@@ -54,6 +91,25 @@ namespace Overtake_Expert_System
             Console.WriteLine("\nInfer: Overtake");
             var conclusion = ruleEngine.Infer("Overtake");
             Console.WriteLine("Conclusion: " + conclusion);
+        }
+
+        public static void PersentageCount(string TestedDataAns, string DataAns)
+        {
+            if (TestedDataAns == "Overtake = " + DataAns)
+            {
+                CorrectAns++;
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Correct answer");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("incorrect answer");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+
+            Percentage = (100 / TestedDataAmount) * CorrectAns;
         }
 
         public static void AddRules()
@@ -82,13 +138,53 @@ namespace Overtake_Expert_System
                 AddRules();
             }
 
-            int colmn = rnd.Next(0, allInputs.GetLength(0));
+            int colmn;
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Existing Data");
+            Console.ForegroundColor = ConsoleColor.White;
+            for (int times = 1; times < TestedDataAmount+1; times++)
+            {
+                colmn = rnd.Next(0, allInputs.GetLength(0));
 
-            initialSeparationData = $"{float.Parse(allInputs[colmn][0]):F1}";
-            overtakingSpeedData = $"{float.Parse(allInputs[colmn][1]):F1}";
-            oncomingSpeedData = $"{float.Parse(allInputs[colmn][2]):F1}";
+                initialSeparationData = $"{float.Parse(allInputs[colmn][0]):F1}";
+                overtakingSpeedData = $"{float.Parse(allInputs[colmn][1]):F1}";
+                oncomingSpeedData = $"{float.Parse(allInputs[colmn][2]):F1}";
+                overtakeData = allInputs[colmn][3];
 
-            AddFacts();
+                Console.WriteLine($"\nTested Data : {times}");
+                AddFacts("AllData");
+                ForwardChain();
+                Console.WriteLine($"Correct Answer: {overtakeData}");
+            }
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine($"\nPercentage : {Percentage}\n");
+            Console.ForegroundColor = ConsoleColor.White;
+
+            //Console.ForegroundColor = ConsoleColor.Cyan;
+            //Console.WriteLine("Existing Data");
+            //Console.ForegroundColor = ConsoleColor.White;
+            //CorrectAns = 0;
+            //Percentage = 0;
+
+            //for (int times = 0; times < TestedDataAmount; times++)
+            //{
+            //    colmn = rnd.Next(0, allInputs.GetLength(0));
+
+
+            //    initialSeparationData = $"{float.Parse(allInputs[colmn][0]):F1}";
+            //    overtakingSpeedData = $"{float.Parse(allInputs[colmn][1]):F1}";
+            //    oncomingSpeedData = $"{float.Parse(allInputs[colmn][2]):F1}";
+            //    overtakeData = allInputs[colmn][3];
+
+            //    Console.WriteLine($"\nTested Data : {times}");
+            //    AddFacts("TwoData");
+            //    ForwardChain();
+            //    Console.WriteLine($"Correct Answer: {overtakeData}");
+            //}
+
+            //Console.ForegroundColor = ConsoleColor.Magenta;
+            //Console.WriteLine($"Percentage : {Percentage}\n");
+            //Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }
