@@ -8,11 +8,9 @@ namespace Overtake_Expert_System
 {
     class View
     {
-        public View()
-        {
 
-        }
-
+        public View() { }     
+  
         public static void PercentageDisplay(double percentage)
         {
             Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -49,7 +47,5 @@ namespace Overtake_Expert_System
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
         }
-
-        
     }
 }
