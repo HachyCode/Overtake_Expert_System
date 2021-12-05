@@ -40,7 +40,7 @@ namespace Overtake_Expert_System
                 }
             } while (cs.Count > 0);
         }
-        protected List<Rule> Match()
+        private List<Rule> Match()
         {
             List<Rule> cs = new List<Rule>();
             foreach (Rule rule in m_rules)
@@ -52,7 +52,7 @@ namespace Overtake_Expert_System
             }
             return cs;
         }
-        protected bool FireRule(List<Rule> conflictingRules)
+        private bool FireRule(List<Rule> conflictingRules)
         {
             bool hasRule2Fire = false;
             foreach (Rule rule in conflictingRules)
@@ -124,7 +124,7 @@ namespace Overtake_Expert_System
 
             return conclusion;
         }
-        protected bool IsFact(Clause goal, List<Clause> unproved_conditions)
+        private bool IsFact(Clause goal, List<Clause> unproved_conditions)
         {
             List<Rule> goal_stack = new List<Rule>();
 

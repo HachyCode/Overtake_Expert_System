@@ -18,7 +18,7 @@ namespace Overtake_Expert_System
             end = true;
             Console.ReadKey(true);
         }
-        public static void Timer()
+        private static void Timer()
         {
             Console.WriteLine("Timer started");
 

@@ -35,7 +35,7 @@ namespace Overtake_Expert_System
             
         }
 
-        public static void AddFacts(string type)
+        private static void AddFacts(string type)
         {
             if(type == "AllData")
             {
@@ -67,7 +67,7 @@ namespace Overtake_Expert_System
             }
         }
 
-        public static void ForwardChain()
+        private static void ForwardChain()
         {
             ruleEngine.Infer();
             Console.WriteLine("after inference");
@@ -86,14 +86,14 @@ namespace Overtake_Expert_System
             }
         }
 
-        public static void BackwardChain()
+        private static void BackwardChain()
         {
             Console.WriteLine("\nInfer: Overtake");
             var conclusion = ruleEngine.Infer("Overtake");
             Console.WriteLine("Conclusion: " + conclusion);
         }
 
-        public static void PersentageCount(string TestedDataAns, string DataAns)
+        private static void PersentageCount(string TestedDataAns, string DataAns)
         {
             if (TestedDataAns == "Overtake = " + DataAns)
             {
@@ -112,7 +112,7 @@ namespace Overtake_Expert_System
             Percentage = (100 / TestedDataAmount) * CorrectAns;
         }
 
-        public static void AddRules()
+        private static void AddRules()
         {
             rule = new Rule(overtakeData);
             rule.AddAntecedent(new IsClause(initialSeparation, initialSeparationData));
@@ -122,7 +122,7 @@ namespace Overtake_Expert_System
             ruleEngine.AddRule(rule);
         }
 
-        public static void ReadData()
+        private static void ReadData()
         {
             string[] dataset = File.ReadAllLines(@"OvertakeData.csv");
             string[][] allInputs = dataset
