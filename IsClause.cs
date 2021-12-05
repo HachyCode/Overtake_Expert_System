@@ -16,6 +16,12 @@ namespace Overtake_Expert_System
 
         protected override IntersectionType Intersect(Clause rhs)
         {
+            string v1 = _value;
+            string v2 = rhs.Value;
+
+            double a = 0;
+            double b = 0;
+
             if (rhs is IsClause)
             {
                 if (_value == rhs.Value)
@@ -27,68 +33,63 @@ namespace Overtake_Expert_System
                     return IntersectionType.MUTUALLY_EXCLUDE;
                 }
             }
-
-            string v1 = _value;
-            string v2 = rhs.Value;
-
-            double a = 0;
-            double b = 0;
-
-            if (double.TryParse(v1, out a) && double.TryParse(v2, out b))
-            {
-                if (rhs is LessClause)
-                {
-                    if (a >= b)
-                    {
-                        return IntersectionType.MUTUALLY_EXCLUDE;
-                    }
-                    else
-                    {
-                        return IntersectionType.INCLUDE;
-                    }
-                }
-                else if (rhs is LEClause)
-                {
-                    if (a > b)
-                    {
-                        return IntersectionType.MUTUALLY_EXCLUDE;
-                    }
-                    else
-                    {
-                        return IntersectionType.INCLUDE;
-                    }
-                }
-                else if (rhs is GreaterClause)
-                {
-                    if (a <= b)
-                    {
-                        return IntersectionType.MUTUALLY_EXCLUDE;
-                    }
-                    else
-                    {
-                        return IntersectionType.INCLUDE;
-                    }
-                }
-                else if (rhs is GEClause)
-                {
-                    if (a < b)
-                    {
-                        return IntersectionType.MUTUALLY_EXCLUDE;
-                    }
-                    else
-                    {
-                        return IntersectionType.INCLUDE;
-                    }
-                }
-                else
-                {
-                    return IntersectionType.UNKNOWN;
-                }
-            }
             else
             {
                 return IntersectionType.UNKNOWN;
             }
+
+            //if (double.TryParse(v1, out a) && double.TryParse(v2, out b))
+            //{
+            //    if (rhs is LessClause)
+            //    {
+            //        if (a >= b)
+            //        {
+            //            return IntersectionType.MUTUALLY_EXCLUDE;
+            //        }
+            //        else
+            //        {
+            //            return IntersectionType.INCLUDE;
+            //        }
+            //    }
+            //    else if (rhs is LEClause)
+            //    {
+            //        if (a > b)
+            //        {
+            //            return IntersectionType.MUTUALLY_EXCLUDE;
+            //        }
+            //        else
+            //        {
+            //            return IntersectionType.INCLUDE;
+            //        }
+            //    }
+            //    else if (rhs is GreaterClause)
+            //    {
+            //        if (a <= b)
+            //        {
+            //            return IntersectionType.MUTUALLY_EXCLUDE;
+            //        }
+            //        else
+            //        {
+            //            return IntersectionType.INCLUDE;
+            //        }
+            //    }
+            //    else if (rhs is GEClause)
+            //    {
+            //        if (a < b)
+            //        {
+            //            return IntersectionType.MUTUALLY_EXCLUDE;
+            //        }
+            //        else
+            //        {
+            //            return IntersectionType.INCLUDE;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        return IntersectionType.UNKNOWN;
+            //    }
+            //}
+            
         }
     }
 }
