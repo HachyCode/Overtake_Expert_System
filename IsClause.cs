@@ -19,9 +19,6 @@ namespace Overtake_Expert_System
             string v1 = _value;
             string v2 = rhs.Value;
 
-            double a = 0;
-            double b = 0;
-
             if (rhs is IsClause)
             {
                 if (_value == rhs.Value)
