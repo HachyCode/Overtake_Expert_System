@@ -37,59 +37,6 @@ namespace Overtake_Expert_System
             {
                 return IntersectionType.UNKNOWN;
             }
-
-            //if (double.TryParse(v1, out a) && double.TryParse(v2, out b))
-            //{
-            //    if (rhs is LessClause)
-            //    {
-            //        if (a >= b)
-            //        {
-            //            return IntersectionType.MUTUALLY_EXCLUDE;
-            //        }
-            //        else
-            //        {
-            //            return IntersectionType.INCLUDE;
-            //        }
-            //    }
-            //    else if (rhs is LEClause)
-            //    {
-            //        if (a > b)
-            //        {
-            //            return IntersectionType.MUTUALLY_EXCLUDE;
-            //        }
-            //        else
-            //        {
-            //            return IntersectionType.INCLUDE;
-            //        }
-            //    }
-            //    else if (rhs is GreaterClause)
-            //    {
-            //        if (a <= b)
-            //        {
-            //            return IntersectionType.MUTUALLY_EXCLUDE;
-            //        }
-            //        else
-            //        {
-            //            return IntersectionType.INCLUDE;
-            //        }
-            //    }
-            //    else if (rhs is GEClause)
-            //    {
-            //        if (a < b)
-            //        {
-            //            return IntersectionType.MUTUALLY_EXCLUDE;
-            //        }
-            //        else
-            //        {
-            //            return IntersectionType.INCLUDE;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        return IntersectionType.UNKNOWN;
-            //    }
-            //}
-            
         }
     }
 }

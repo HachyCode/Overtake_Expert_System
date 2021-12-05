@@ -27,12 +27,10 @@ namespace Overtake_Expert_System
         private static double Percentage { get; set; }
         private static int rndDataType { get; set; }
 
-
         private static RuleEngine ruleEngine = new RuleEngine();
         public Model()
         {
             ReadData();
-            
         }
 
         private static void AddFacts(string type)
@@ -70,10 +68,10 @@ namespace Overtake_Expert_System
         private static void ForwardChain()
         {
             ruleEngine.Infer();
-            Console.WriteLine("after inference");
+            View.PrintText("after inference");
             foreach ( var fact in ruleEngine.Facts.facts)
             {
-                Console.WriteLine(fact);
+                View.PrintText(Convert.ToString(fact));
             }
 
             if(ruleEngine.Facts.facts.Count == 4)
@@ -88,9 +86,9 @@ namespace Overtake_Expert_System
 
         private static void BackwardChain()
         {
-            Console.WriteLine("\nInfer: Overtake");
+            View.PrintText("\nInfer: Overtake");
             var conclusion = ruleEngine.Infer("Overtake");
-            Console.WriteLine("Conclusion: " + conclusion);
+            View.PrintText($"Conclusion: {conclusion}");
         }
 
         private static void PersentageCount(string TestedDataAns, string DataAns)
@@ -98,15 +96,11 @@ namespace Overtake_Expert_System
             if (TestedDataAns == "Overtake = " + DataAns)
             {
                 CorrectAns++;
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Correct answer");
-                Console.ForegroundColor = ConsoleColor.White;
+                View.DisplayCorrest();
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("incorrect answer");
-                Console.ForegroundColor = ConsoleColor.White;
+                View.DisplayIncorect();
             }
 
             Percentage = (100 / TestedDataAmount) * CorrectAns;
@@ -139,9 +133,7 @@ namespace Overtake_Expert_System
             }
 
             int colmn;
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("Existing Data");
-            Console.ForegroundColor = ConsoleColor.White;
+
             for (int times = 1; times < TestedDataAmount+1; times++)
             {
                 colmn = rnd.Next(0, allInputs.GetLength(0));
@@ -151,14 +143,13 @@ namespace Overtake_Expert_System
                 oncomingSpeedData = $"{float.Parse(allInputs[colmn][2]):F1}";
                 overtakeData = allInputs[colmn][3];
 
-                Console.WriteLine($"\nTested Data : {times}");
+                View.PrintText($"\nTested Data : {times}");
                 AddFacts("AllData");
                 ForwardChain();
-                Console.WriteLine($"Correct Answer: {overtakeData}");
+                View.PrintText($"Correct Answer: {overtakeData}");
             }
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine($"\nPercentage : {Percentage}\n");
-            Console.ForegroundColor = ConsoleColor.White;
+
+            View.PercentageDisplay(Percentage);
 
             //Console.ForegroundColor = ConsoleColor.Cyan;
             //Console.WriteLine("Existing Data");
